@@ -15,7 +15,6 @@
     require_once __DIR__ . '/CiboPerAnimali.php';
     require_once __DIR__ . '/GiochiPerAnimali.php';
     require_once __DIR__ . '/AccessoriPerAnimali.php';
-
     
     // importo un nuovo padre relativo all'utente
     // require_once __DIR__ . '/Utente.php';
@@ -74,8 +73,8 @@
     $maria->prodottiScelti($cuccia);
     $maria->prodottiScelti($oneMini);
     $maria->prezzoTotale();
-
     $userArray[] = $maria;
+    
 
     // var_dump($userArray);
 ?>
@@ -93,19 +92,26 @@
     <!-- stampo a monitor -->
     <div>
         <?php foreach ($userArray as $user) { ?>
-            <?php var_dump($user) ?>
+            <?php var_dump($user) ?> 
             <div class='user-name-lastname'>
                 <span class='name'> Ciao <?php echo $user->nome ?></span>
                 <span class='cognome'> <?php echo $user->cognome ?></span>
             </div>
 
-            
+           
             <div> Il prezzo totale è di: <?php echo  $user->prezzoTotale()?> € </div>
-         
-         
+            <div>La fattura è stata inviata all'indirizzo: <?php echo $user->email?> </div>
+           
+            
         <?php }?>
+ 
+    </div>
+
+    <div>
         
     </div>
+
+    
 
 
 </body>
