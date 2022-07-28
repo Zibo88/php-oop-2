@@ -5,7 +5,7 @@
         public $nome;
         public $prezzo;
         public $categoria;
-        public $marca;
+       
 
         // inserisco gli elementi necessari
         public function __construct($_nome, $_prezzo, $_categoria){

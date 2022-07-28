@@ -85,17 +85,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Animal Shop</title>
 </head>
 <body>
     
     <!-- stampo a monitor -->
-    <div>
+    <div class="container">
         <?php foreach ($userArray as $user) { ?>
-            <?php var_dump($user) ?> 
             <div class='user-name-lastname'>
-                <span class='name'> Ciao <?php echo $user->nome ?></span>
+                <div>Ciao</div>
+                <span class='name'><?php echo $user->nome ?></span>
                 <span class='cognome'> <?php echo $user->cognome ?></span>
+                <span>
+                     <!-- dato che l'user ha diversi attributi seleziono i prodotti scelti tramite $user->prodottiScelti -->
+                     <h3>I prodotti selezionati sono:</h3>
+                    <?php foreach($user->prodottiScelti as $typo) { ?> 
+                        <div><?php echo $typo->nome ?></div>
+                    <?php }?>
+                </span>
             </div>
 
            
@@ -110,9 +118,5 @@
     <div>
         
     </div>
-
-    
-
-
 </body>
 </html>

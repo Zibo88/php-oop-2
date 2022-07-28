@@ -16,16 +16,25 @@
             $this->cognome = $_cognome;
             $this->email = $_email;
             $this->indirizzo = $_indirizzo;
+    
         }
 
         // funzione che permette di aggiungere elementi al carrello
         public function prodottiScelti($prodotto){
              $this->prodottiScelti[] = $prodotto; 
+            // var_dump($prodotto);
+            // echo($prodotto->nome);
+
+            
         }
 
         public function getProdottiScelti(){
             return $this->prodottiScelti;
-       }
+            
+        
+        }
+
+       
 
 
 
@@ -53,5 +62,19 @@
 
              
         }
+            
     }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
