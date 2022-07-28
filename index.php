@@ -37,12 +37,14 @@
     var_dump($gunzaglioCani);
 
     // testo il padre degli utenti
-     $mario = new Utente('mario', 'rossi', 'mariorossi@mail.it', 'Via Nazionale 136, Roma');
-    var_dump($mario);
+    //  $mario = new Utente('mario', 'rossi', 'mariorossi@mail.it', 'Via Nazionale 136, Roma');
+    // var_dump($mario);
+
 
     // UTENTI
 
     $claudio = new UtenteNonRegistrato('Claudio', 'Bianchi',  'claudiobianchi@mail.it', 'Via Nazionale 136, Roma');
+    $claudio->prodottiScelti($palla);
     var_dump($claudio);
 
     $maria = new UtenteRegistrato('Maria', 'Verdi',  'mariaverdi@mail.it', 'Via Nazionale 136, Roma');

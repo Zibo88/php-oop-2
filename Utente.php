@@ -17,5 +17,9 @@
             $this->email = $_email;
             $this->indirizzo = $_indirizzo;
         }
+
+        public function prodottiScelti($prodotto){
+            return $this->prodottiScelti[] = $prodotto; 
+        }
     }
 ?>
