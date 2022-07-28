@@ -23,33 +23,34 @@
     require_once __DIR__ . '/UtenteNonRegistrato.php';
     require_once __DIR__ . '/UtenteRegistrato.php';
 
-
+    // creo un array vuoto cdove andrò ad inserire gli utenti
+    $userArray= [];
 
     // PRODOTTI///////////
 
         // CIBO
     $friskies = new CiboPerAnimali('Friskies', 19 , 'Cibo','Crocchette' );
-    var_dump($friskies);
+    // var_dump($friskies);
 
     $oneMini = new CiboPerAnimali ('One Mini', 25, 'Cibo' ,'Bocconcini');
-    var_dump($oneMini);
+    // var_dump($oneMini);
 
     //GIOCHI
     $palla = new GiochiPerAnimali('Palla di gomma', 10 , 'Giochi');
     $palla->materiale = 'plastica';
-    var_dump($palla);
+    // var_dump($palla);
 
     $trixieJuniorOrso = new GiochiPerAnimali ('Trixie Junior Orso', 34, 'Giochi');
     $trixieJuniorOrso->materiale = 'Tessuto';
-    var_dump($trixieJuniorOrso);
+    // var_dump($trixieJuniorOrso);
 
     // ACCESSORI
     $gunzaglioCani = new AccessoriPerAnimali('Guinzaglio', 15, 'accessori', 'grande');
-    var_dump($gunzaglioCani);
+    // var_dump($gunzaglioCani);
 
     $cuccia = new AccessoriPerAnimali('Cuccia', 50, 'accessori', 'grande');
     $cuccia->materiale = 'legno';
-    var_dump($cuccia);
+    // var_dump($cuccia);
 
     // testo il padre degli utenti
     //  $mario = new Utente('mario', 'rossi', 'mariorossi@mail.it', 'Via Nazionale 136, Roma');
@@ -58,13 +59,54 @@
 
     // UTENTI/////////////////////////////////
 
+    // utenti non registrati
     $claudio = new UtenteNonRegistrato('Claudio', 'Bianchi',  'claudiobianchi@mail.it', 'Via Nazionale 136, Roma');
+    // richiamo la funzione di scelta dei prodotti
     $claudio->prodottiScelti($palla);
     $claudio->prodottiScelti($friskies);
+    // richiamo la funzione che da il totale da pagare
+    $claudio->prezzoTotale();
 
-    var_dump($claudio);
+   $userArray[] = $claudio;
+ 
+    // utenti registrati
+    $maria = new UtenteRegistrato('Maria', 'Verdi',  'mariaverdi@mail.it', 'Via Vittorio emanuele 16, Roma');
+    $maria->prodottiScelti($cuccia);
+    $maria->prodottiScelti($oneMini);
+    $maria->prezzoTotale();
 
-    $maria = new UtenteRegistrato('Maria', 'Verdi',  'mariaverdi@mail.it', 'Via Nazionale 136, Roma');
-    var_dump($maria)
+    $userArray[] = $maria;
 
+    // var_dump($userArray);
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Shop</title>
+</head>
+<body>
+    
+    <!-- stampo a monitor -->
+    <div>
+        <?php foreach ($userArray as $user) { ?>
+            <?php var_dump($user) ?>
+            <div class='user-name-lastname'>
+                <span class='name'> Ciao <?php echo $user->nome ?></span>
+                <span class='cognome'> <?php echo $user->cognome ?></span>
+            </div>
+
+            
+            <div> Il prezzo totale è di: <?php echo  $user->prezzoTotale()?> € </div>
+         
+         
+        <?php }?>
+        
+    </div>
+
+
+</body>
+</html>
