@@ -25,26 +25,43 @@
 
 
 
+    // PRODOTTI///////////
 
-    $purina = new CiboPerAnimali('Crocchette', 19.5 , 'Cibo','Cani' );
-    var_dump($purina);
+        // CIBO
+    $friskies = new CiboPerAnimali('Friskies', 19 , 'Cibo','Crocchette' );
+    var_dump($friskies);
 
+    $oneMini = new CiboPerAnimali ('One Mini', 25, 'Cibo' ,'Bocconcini');
+    var_dump($oneMini);
+
+    //GIOCHI
     $palla = new GiochiPerAnimali('Palla di gomma', 10 , 'Giochi');
     $palla->materiale = 'plastica';
     var_dump($palla);
 
+    $trixieJuniorOrso = new GiochiPerAnimali ('Trixie Junior Orso', 34, 'Giochi');
+    $trixieJuniorOrso->materiale = 'Tessuto';
+    var_dump($trixieJuniorOrso);
+
+    // ACCESSORI
     $gunzaglioCani = new AccessoriPerAnimali('Guinzaglio', 15, 'accessori', 'grande');
     var_dump($gunzaglioCani);
+
+    $cuccia = new AccessoriPerAnimali('Cuccia', 50, 'accessori', 'grande');
+    $cuccia->materiale = 'legno';
+    var_dump($cuccia);
 
     // testo il padre degli utenti
     //  $mario = new Utente('mario', 'rossi', 'mariorossi@mail.it', 'Via Nazionale 136, Roma');
     // var_dump($mario);
 
 
-    // UTENTI
+    // UTENTI/////////////////////////////////
 
     $claudio = new UtenteNonRegistrato('Claudio', 'Bianchi',  'claudiobianchi@mail.it', 'Via Nazionale 136, Roma');
     $claudio->prodottiScelti($palla);
+    $claudio->prodottiScelti($friskies);
+
     var_dump($claudio);
 
     $maria = new UtenteRegistrato('Maria', 'Verdi',  'mariaverdi@mail.it', 'Via Nazionale 136, Roma');
