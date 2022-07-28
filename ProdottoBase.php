@@ -1,5 +1,5 @@
 <?php
-
+    // creo la classe base
     class ProdottoBase {
 
         public $nome;
@@ -7,6 +7,7 @@
         public $categoria;
         public $marca;
 
+        // inserisco gli elementi necessari
         public function __construct($_nome, $_prezzo, $_categoria){
             $this->nome = $_nome;
             $this->prezzo = $_prezzo;
