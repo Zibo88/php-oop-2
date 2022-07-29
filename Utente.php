@@ -30,13 +30,7 @@
 
         public function getProdottiScelti(){
             return $this->prodottiScelti;
-            
-        
         }
-
-       
-
-
 
         // creata funzione che ritorna il prezzo totale da pagare
         public function prezzoTotale(){

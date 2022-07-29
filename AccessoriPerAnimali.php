@@ -17,9 +17,6 @@
 
         }
 
-        // public function productSize(){
-        //     return $this->
-        // }
     }
 
 

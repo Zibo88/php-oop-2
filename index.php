@@ -21,6 +21,10 @@
 
     require_once __DIR__ . '/UtenteNonRegistrato.php';
     require_once __DIR__ . '/UtenteRegistrato.php';
+    require_once __DIR__ . '/CartaPrepagata.php';
+
+    // Metodo di pagamento
+
 
     // creo un array vuoto cdove andrò ad inserire gli utenti
     $userArray= [];
@@ -52,8 +56,8 @@
     // var_dump($cuccia);
 
     // testo il padre degli utenti
-    //  $mario = new Utente('mario', 'rossi', 'mariorossi@mail.it', 'Via Nazionale 136, Roma');
-    // var_dump($mario);
+    //  $test = new Utente('mario', 'rossi', 'mariorossi@mail.it', 'Via Nazionale 136, Roma');
+    //  var_dump($test);
 
 
     // UTENTI/////////////////////////////////
@@ -65,18 +69,29 @@
     $claudio->prodottiScelti($friskies);
     // richiamo la funzione che da il totale da pagare
     $claudio->prezzoTotale();
-
+    // inserisco l'instanza nell'array di tutti gli user
    $userArray[] = $claudio;
+    //saldo
+    $claudio->saldo= 20;
  
     // utenti registrati
     $maria = new UtenteRegistrato('Maria', 'Verdi',  'mariaverdi@mail.it', 'Via Vittorio emanuele 16, Roma');
+    // l'instanza richiama la funzione prodotti scelti e aggiunge come argomenti un prodotto
     $maria->prodottiScelti($cuccia);
     $maria->prodottiScelti($oneMini);
+     // l'instanza richiama la funzione che stabilisce il prezzo totale in base agli articoli scelti
     $maria->prezzoTotale();
+     // inserisco l'instanza nell'array di tutti gli user
     $userArray[] = $maria;
+    // //saldo
+    $maria->saldo= 90;
+    // var_dump($maria->saldo);
     
 
-    // var_dump($userArray);
+    // PAGAMENTI ///////////////////////////
+   $cartaPrepagata = new CartaPrepagata(1234567,'Maria Verdi');
+   var_dump($cartaPrepagata);
+
 ?>
 
 <!DOCTYPE html>
@@ -98,16 +113,23 @@
                 <span class='name'><?php echo $user->nome ?></span>
                 <span class='cognome'> <?php echo $user->cognome ?></span>
                 <span>
-                     <!-- dato che l'user ha diversi attributi seleziono i prodotti scelti tramite $user->prodottiScelti -->
                      <h3>I prodotti selezionati sono:</h3>
+                    <!-- dato che l'user ha diversi attributi seleziono i prodotti scelti tramite $user->prodottiScelti -->
                     <?php foreach($user->prodottiScelti as $typo) { ?> 
                         <div><?php echo $typo->nome ?></div>
                     <?php }?>
                 </span>
             </div>
 
-           
             <div> Il prezzo totale è di: <?php echo  $user->prezzoTotale()?> € </div>
+            <!-- se il saldo dell'user è inferiore prezzo totale dell'user -->
+            <div><?php if($user->saldo < $user->prezzoTotale()){
+                echo 'Non hai abbastanza credito';
+            }else {
+
+                echo 'Acquisto completato';
+            }
+            ?></div>
             <div>La fattura è stata inviata all'indirizzo: <?php echo $user->email?> </div>
            
             
