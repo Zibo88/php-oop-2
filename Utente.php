@@ -1,6 +1,11 @@
 <?php
+    // importo la trait class Fattura.php, nel padre, così che sia utilizzabile da tutti i figli
+    require_once __DIR__ . '/Fattura.php';
     // creo un nuovo modello relativo all'utente in generale
+    require_once __DIR__ . '/CartaPrepagata.php';
     class Utente{
+        
+        
 
         // assegno gli attributi
         public $nome;
@@ -9,14 +14,16 @@
         public $indirizzo;
         public $sconto = 0;
         public $prodottiScelti = [];
+        public $cartaPrepagata;
+        use Fattura;
 
         // assegno il __construct
-        public function __construct($_nome, $_cognome, $_email, $_indirizzo){
+        public function __construct($_nome, $_cognome, $_email, $_indirizzo, $_cartaPrepagata){
             $this->nome = $_nome;
             $this->cognome = $_cognome;
             $this->email = $_email;
             $this->indirizzo = $_indirizzo;
-    
+            $this->cartaPrepagata = $_cartaPrepagata;
         }
 
         // funzione che permette di aggiungere elementi al carrello
@@ -44,7 +51,7 @@
                  $sum += $prodotto->prezzo;
              }
             
-            //  var_dump($sum);
+            // var_dump($sum);
 
             // calcolo il prezzo finale
 
@@ -52,9 +59,20 @@
 
             // ritornerà la somma dei prodotti selezionati con o senza lo sconto
             return $sum;
+  
+        }
 
+        public function effettuaPagamento() {
+            $totaleDaPagare = $this->prezzoTotale();
+            // accedo alle proprietà dell'utente->cartaprepagata->saldo
+            
+            if($this->cartaPrepagata->saldo < $totaleDaPagare) {
+                throw new Exception("Utente: $this->nome: Saldo non disponibile sulla carta");
+            } else {
+                return 'ok';
+                
+            }
 
-             
         }
             
     }

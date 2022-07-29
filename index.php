@@ -21,10 +21,10 @@
 
     require_once __DIR__ . '/UtenteNonRegistrato.php';
     require_once __DIR__ . '/UtenteRegistrato.php';
-    require_once __DIR__ . '/CartaPrepagata.php';
+    
 
     // Metodo di pagamento
-
+    require_once __DIR__ . '/CartaPrepagata.php';
 
     // creo un array vuoto cdove andrò ad inserire gli utenti
     $userArray= [];
@@ -63,19 +63,25 @@
     // UTENTI/////////////////////////////////
 
     // utenti non registrati
-    $claudio = new UtenteNonRegistrato('Claudio', 'Bianchi',  'claudiobianchi@mail.it', 'Via Nazionale 136, Roma');
+    $claudio = new UtenteNonRegistrato('Claudio', 'Bianchi',  'claudiobianchi@mail.it', 'Via Nazionale 136, Roma', new CartaPrepagata);
     // richiamo la funzione di scelta dei prodotti
     $claudio->prodottiScelti($palla);
     $claudio->prodottiScelti($friskies);
     // richiamo la funzione che da il totale da pagare
     $claudio->prezzoTotale();
     // inserisco l'instanza nell'array di tutti gli user
-   $userArray[] = $claudio;
+    $userArray[] = $claudio;
     //saldo
-    $claudio->saldo= 20;
+    // $claudio->saldo= 20;
+    $claudio->numeroFattura = 3489;
+    $claudio->data = '19/03/2021';
+    //  var_dump($claudio);
+
  
     // utenti registrati
-    $maria = new UtenteRegistrato('Maria', 'Verdi',  'mariaverdi@mail.it', 'Via Vittorio emanuele 16, Roma');
+    $maria = new UtenteRegistrato('Maria', 'Verdi',  'mariaverdi@mail.it', 'Via Vittorio emanuele 16, Roma', new CartaPrepagata);
+
+
     // l'instanza richiama la funzione prodotti scelti e aggiunge come argomenti un prodotto
     $maria->prodottiScelti($cuccia);
     $maria->prodottiScelti($oneMini);
@@ -84,13 +90,19 @@
      // inserisco l'instanza nell'array di tutti gli user
     $userArray[] = $maria;
     // //saldo
-    $maria->saldo= 90;
-    // var_dump($maria->saldo);
+    // $maria->saldo= 90;
+  
+    // Trait class Fattura
+    $maria->numeroFattura = 74389;
+    $maria->data = '22/07/2022';
+    // var_dump($maria);
     
 
     // PAGAMENTI ///////////////////////////
    $cartaPrepagata = new CartaPrepagata(1234567,'Maria Verdi');
+
    var_dump($cartaPrepagata);
+  
 
 ?>
 
@@ -108,6 +120,7 @@
     <!-- stampo a monitor -->
     <div class="container">
         <?php foreach ($userArray as $user) { ?>
+            
             <div class='user-name-lastname'>
                 <div>Ciao</div>
                 <span class='name'><?php echo $user->nome ?></span>
@@ -123,14 +136,20 @@
 
             <div> Il prezzo totale è di: <?php echo  $user->prezzoTotale()?> € </div>
             <!-- se il saldo dell'user è inferiore prezzo totale dell'user -->
-            <div><?php if($user->saldo < $user->prezzoTotale()){
-                echo 'Non hai abbastanza credito';
-            }else {
-
-                echo 'Acquisto completato';
+            <div><?php
+            // eseguo un try and catch sulla funzione che effettua il pagamento
+            //prova ad eseguire -> effettua pagamento
+            try {
+                $user->effettuaPagamento();
+                echo 'Il pagamento è andato a buon fine';
+                
+                // se no esegui (messaggio che ci arriva dal trow new Exception della funzione, nel foglio in cui è stata creata)
+            } catch (Exception $err){
+                echo $err->getMessage();
             }
-            ?></div>
-            <div>La fattura è stata inviata all'indirizzo: <?php echo $user->email?> </div>
+            
+            ?></div>    
+            <div>La fattura n° <?php echo $user->numeroFattura ?> è stata inviata all'indirizzo: <?php echo $user->email?> in data <?php  ?> </div>
            
             
         <?php }?>
