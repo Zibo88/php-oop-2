@@ -148,10 +148,10 @@
                 echo $err->getMessage();
             }
             
-            ?></div>    
-            <div>La fattura n° <?php echo $user->numeroFattura ?> è stata inviata all'indirizzo: <?php echo $user->email?> in data <?php  ?> </div>
+            ?></div>   
+            <!-- Condizione che stampa in pagina il numero di fattura solo se il pagamento è andato a buon fine  -->
+            <div> <?php if($user->effettuapagamento())?>  La fattura n° <?php echo $user->numeroFattura ?> è stata inviata all'indirizzo: <?php echo $user->email?> in data <?php  ?> </div>
            
-            
         <?php }?>
  
     </div>
